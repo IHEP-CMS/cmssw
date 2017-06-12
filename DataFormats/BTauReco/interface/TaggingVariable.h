@@ -37,7 +37,7 @@ namespace reco {
       jetEta,                                   // jet pseudorapidity
       jetPhi,                                   // jet polar angle
       jetNTracks,                               // tracks associated to jet
-      
+      jetNchTracks,                              // total charged and good tracks associated  to jet 
       jetNTracks_PV,                            // tracks associated to jet coming from primary Vertex
       jetNTracks_nonPV,                         // tracks associated to jet not coming from primary Vertex
       jetPt_Tracks,                             // jet transverse momentum from the vector sum of the transverse momentum of associated tracks
