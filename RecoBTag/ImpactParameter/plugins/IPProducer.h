@@ -358,9 +358,13 @@ IPProducer<Container,Base,Helper>::produce(edm::Event& iEvent, const edm::EventS
        const reco::Track & track = transientTrack.track();
 
        reco::btag::TrackIPData trackIP;
+       trackIP.Absip3d = IPTools::absoluteImpactParameter3D(transientTrack, *pv).second;
+       trackIP.Absip2d = IPTools::absoluteTransverseImpactParameter(transientTrack, *pv).second;
+       trackIP.Absip1d = IPTools::absoluteImpactParameter1D(transientTrack, *pv).second;
+  
        trackIP.ip3d = IPTools::signedImpactParameter3D(transientTrack, direction, *pv).second;
        trackIP.ip2d = IPTools::signedTransverseImpactParameter(transientTrack, direction, *pv).second;
-
+       trackIP.ip1d    = IPTools::signedImpactParameter1D(transientTrack, direction, *pv).second;
        TrajectoryStateOnSurface closest =
                IPTools::closestApproachToJet(transientTrack.impactPointState(),
                                              *pv, direction,
@@ -431,9 +435,11 @@ IPProducer<Container,Base,Helper>::produce(edm::Event& iEvent, const edm::EventS
 
 template <class Container, class Base, class Helper> void IPProducer<Container,Base,Helper>::checkEventSetup(const edm::EventSetup & iSetup)
  {
-  
-   const edm::eventsetup::EventSetupRecord & re2D= iSetup.get<BTagTrackProbability2DRcd>();
-   const edm::eventsetup::EventSetupRecord & re3D= iSetup.get<BTagTrackProbability3DRcd>();
+  using namespace edm;
+  using namespace edm::eventsetup;
+
+   const EventSetupRecord & re2D= iSetup.get<BTagTrackProbability2DRcd>();
+   const EventSetupRecord & re3D= iSetup.get<BTagTrackProbability3DRcd>();
    unsigned long long cacheId2D= re2D.cacheIdentifier();
    unsigned long long cacheId3D= re3D.cacheIdentifier();
 

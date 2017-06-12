@@ -307,6 +307,7 @@ void CombinedSVComputer::fillCommonVariables(reco::TaggingVariableList & vars, r
                 vars.insert(btau::trackPtRatio, VectorUtil::Perp(trackMom, jetDir) / trackMag, true);
                 vars.insert(btau::trackPParRatio, jetDir.Dot(trackMom) / trackMag, true);
         }
+        vars.insert(btau::jetNchTracks,jetchtrks.size(),true);
         vars.insert(btau::jetNTracks_PV,jetchtrkspv.size(), true);
         vars.insert(btau::jetNTracks_nonPV,jetchtrksnpv.size(), true);
         vars.insert(btau::jetPt_Tracks,chtrks_LV.pt(), true);
